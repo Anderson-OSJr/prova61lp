@@ -1,15 +1,6 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  keyframes: {
-    shimmer: {
-      "0%": { backgroundPosition: "-200% center" },
-      "100%": { backgroundPosition: "200% center" },
-    },
-  },
-  animation: {
-    shimmer: "shimmer 6s linear infinite",
-  },
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",

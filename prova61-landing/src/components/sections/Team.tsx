@@ -1,27 +1,26 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail } from 'lucide-react'
 
 const team = [
   {
-    name: 'Anderson Silva',
+    name: 'Anderson Silva Jr',
     role: 'Tech Lead & Full Stack',
-    bio: '10+ anos de experiência em desenvolvimento de sistemas complexos.',
-    social: { github: '#', linkedin: '#', email: '#' }
+    bio: 'Conduz a arquitetura dos projetos, do backend à integração dos agentes de IA.',
+    stack: ['Next.js', 'TypeScript', 'Prisma'],
   },
   {
-    name: 'Mariana Costa',
-    role: 'Desenvolvedora Front-end',
-    bio: 'Especialista em UI/UX e experiências imersivas com Next.js.',
-    social: { github: '#', linkedin: '#', email: '#' }
+    name: 'Felipe Borges',
+    role: 'Desenvolvedor Front-end',
+    bio: 'Cuida da experiência de interface, responsividade e detalhes visuais.',
+    stack: ['React', 'Tailwind', 'UI/UX'],
   },
   {
-    name: 'Rafael Oliveira',
+    name: 'Raissa Albino',
     role: 'Backend & IA Specialist',
-    bio: 'Expert em integração de agentes de IA e automação com N8N.',
-    social: { github: '#', linkedin: '#', email: '#' }
-  }
+    bio: 'Especialista em automação com N8N e integração de agentes de IA.',
+    stack: ['N8N', 'APIs', 'Agentes de IA'],
+  },
 ]
 
 export function Team() {
@@ -80,16 +79,15 @@ export function Team() {
                   <p className="text-gray-600 text-sm mb-4">
                     {member.bio}
                   </p>
-                  <div className="flex justify-center gap-3">
-                    <a href="#" className="text-gray-400 hover:text-navy-700 transition-colors">
-                      <Github size={18} />
-                    </a>
-                    <a href="#" className="text-gray-400 hover:text-navy-700 transition-colors">
-                      <Linkedin size={18} />
-                    </a>
-                    <a href="#" className="text-gray-400 hover:text-navy-700 transition-colors">
-                      <Mail size={18} />
-                    </a>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {member.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs px-3 py-1 rounded-full bg-navy-50 text-navy-700 font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>

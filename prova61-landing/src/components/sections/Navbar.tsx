@@ -1,53 +1,72 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { whatsappHref } from "@/lib/site-config";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
-    { label: 'Serviços', href: '#servicos' },
-    { label: 'Equipe', href: '#equipe' },
-    { label: 'My Robot', href: '#franquia' },
-    { label: 'Contato', href: '#contato' },
-  ]
+    { label: "Serviços", href: "#servicos" },
+    { label: "Equipe", href: "#equipe" },
+    { label: "My Robot", href: "#franquia" },
+    { label: "Contato", href: "#contato" },
+  ];
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-navy-950/95 backdrop-blur-xl border-b border-white/5 py-3' 
-          : 'bg-transparent py-5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-navy-950/95 backdrop-blur-xl border-b border-white/5 ${
+        isScrolled ? "py-2" : "py-4"
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-12 h-12 bg-gold-600/20 rounded-full flex items-center justify-center">
-            <span className="font-display text-xl font-bold text-white">
-              P<span className="text-gold-500">61</span>
-            </span>
+          <div
+            className={`relative flex items-center justify-center rounded-md bg-white shadow-[0_0_20px_rgba(201,168,76,0.15)] ring-1 ring-gold-500/20 transition-all duration-300 ${
+              isScrolled
+                ? "h-[3.25rem] w-[3.25rem] p-1.5"
+                : "h-[3.9rem] w-[3.9rem] p-2"
+            }`}
+          >
+            <Image
+              src="/images/logo.png"
+              alt="Prova 61"
+              fill
+              sizes="62px"
+              className="object-contain p-1"
+              priority
+            />
           </div>
-          <div>
-            <span className="font-display text-xl font-bold text-white">
+          <div
+            className={`overflow-hidden transition-all duration-300 ${
+              isScrolled
+                ? "max-w-0 opacity-0 sm:max-w-xs sm:opacity-100"
+                : "max-w-xs opacity-100"
+            }`}
+          >
+            <span className="font-display text-2xl font-bold text-white whitespace-nowrap">
               Prova <span className="text-gold-500">61</span>
             </span>
-            <p className="text-xs text-gray-400 -mt-1">Educação & Desenvolvimento</p>
+            <p className="text-[13px] text-gray-400 -mt-1 whitespace-nowrap">
+              Educação & Desenvolvimento
+            </p>
           </div>
         </Link>
 
@@ -62,11 +81,11 @@ export function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-500 transition-all group-hover:w-full" />
             </Link>
           ))}
-          <Button 
-            className="bg-gold-600 hover:bg-gold-700 text-navy-950 font-semibold rounded-full px-6"
+          <Button
+            className="bg-gold-600 hover:bg-gold-700 text-navy-950 font-semibold rounded-xl px-6"
             asChild
           >
-            <a href="https://wa.me/5516999999999" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
               WhatsApp
             </a>
           </Button>
@@ -75,6 +94,7 @@ export function Navbar() {
         <button
           className="md:hidden text-white p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Abrir menu"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -83,7 +103,7 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
+          animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           className="md:hidden bg-navy-950/95 backdrop-blur-xl border-t border-white/5"
         >
@@ -98,12 +118,17 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Button className="bg-gold-600 hover:bg-gold-700 text-navy-950 font-semibold rounded-full w-full">
-              WhatsApp
+            <Button
+              className="bg-gold-600 hover:bg-gold-700 text-navy-950 font-semibold rounded-xl w-full"
+              asChild
+            >
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+                WhatsApp
+              </a>
             </Button>
           </div>
         </motion.div>
       )}
     </motion.nav>
-  )
+  );
 }
